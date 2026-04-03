@@ -35,3 +35,29 @@ out/
 
 ### VS Code ###
 .vscode/
+
+.env
+*.env
+.env.*
+
+application-secret.properties
+application-secret.yml
+application-local.properties
+application-local.yml
+secrets/
+*.key
+*.pem
+*.p12
+*.jks
+
+*.log
+logs/
+
+.DS_Store
+Thumbs.db
+
+.dockerignore
+.docekrignore
+
+.claude/
+CLAUDE.md
