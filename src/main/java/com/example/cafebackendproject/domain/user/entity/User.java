@@ -1,8 +1,11 @@
 package com.example.cafebackendproject.domain.user.entity;
 
+import com.example.cafebackendproject.common.entity.ModifiableEntity;
 import com.example.cafebackendproject.domain.user.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "users")
@@ -10,7 +13,7 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class User {
+public class User extends ModifiableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,4 +32,16 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UserRole userRole;
+
+    @Column(nullable = false)
+    @Builder.Default
+    private BigDecimal balance = BigDecimal.ZERO;
+
+    public void charge(BigDecimal amount) {
+        this.balance = this.balance.add(amount);
+    }
+
+    public void deduct(BigDecimal amount) {
+        this.balance = this.balance.subtract(amount);
+    }
 }

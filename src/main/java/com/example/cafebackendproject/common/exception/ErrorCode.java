@@ -23,7 +23,11 @@ public enum ErrorCode {
 
     // Menu
     MENU_NOT_FOUND(404, "메뉴를 찾을 수 없습니다."),
-    DUPLICATE_MENU_NAME(409, "이미 존재하는 메뉴 이름입니다.");
+    DUPLICATE_MENU_NAME(409, "이미 존재하는 메뉴 이름입니다."),
+
+    // Point
+    INSUFFICIENT_BALANCE(400, "포인트 잔액이 부족합니다."),
+    INVALID_AMOUNT(400, "충전 금액은 0보다 커야 합니다.");
 
     private final int status;
     private final String message;
