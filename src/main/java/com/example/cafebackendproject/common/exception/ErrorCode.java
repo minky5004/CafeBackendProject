@@ -27,7 +27,12 @@ public enum ErrorCode {
 
     // Point
     INSUFFICIENT_BALANCE(400, "포인트 잔액이 부족합니다."),
-    INVALID_AMOUNT(400, "충전 금액은 0보다 커야 합니다.");
+    INVALID_AMOUNT(400, "충전 금액은 0보다 커야 합니다."),
+
+    // Order
+    ORDER_NOT_FOUND(404, "주문을 찾을 수 없습니다."),
+    ORDER_ALREADY_PAID(400, "이미 결제된 주문입니다."),
+    MENU_UNAVAILABLE(400, "현재 주문할 수 없는 메뉴가 포함되어 있습니다.");
 
     private final int status;
     private final String message;
