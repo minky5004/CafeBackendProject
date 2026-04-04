@@ -1,5 +1,6 @@
 package com.example.cafebackendproject.domain.user.entity;
 
+import com.example.cafebackendproject.common.entity.ModifiableEntity;
 import com.example.cafebackendproject.domain.user.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
@@ -12,7 +13,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class User {
+public class User extends ModifiableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

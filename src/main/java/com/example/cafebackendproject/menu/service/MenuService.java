@@ -35,10 +35,10 @@ public class MenuService {
         return MenuResponse.from(menuRepository.save(menu));
     }
 
-    // 판매 중인 메뉴 전체 조회
+    // 삭제되지 않고 판매 중인 메뉴 전체 조회
     @Transactional(readOnly = true)
     public List<MenuResponse> getAvailableMenus() {
-        return menuRepository.findAllByIsAvailableTrue().stream()
+        return menuRepository.findAllByIsAvailableTrueAndDeletedFalse().stream()
                 .map(MenuResponse::from)
                 .toList();
     }
@@ -74,11 +74,11 @@ public class MenuService {
         return MenuResponse.from(menu);
     }
 
-    // Soft Delete: isAvailable = false로 판매 중지 처리
+    // Soft Delete: deleted = true, deletedAt 기록
     @Transactional
     public void delete(Long menuId) {
         Menu menu = menuRepository.findById(menuId)
                 .orElseThrow(() -> new CustomException(ErrorCode.MENU_NOT_FOUND));
-        menu.disable();
+        menu.delete();
     }
 }

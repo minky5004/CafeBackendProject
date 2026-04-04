@@ -10,6 +10,6 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
     // 메뉴명 중복 체크
     boolean existsByName(String name);
 
-    // 판매 중인 메뉴만 조회
-    List<Menu> findAllByIsAvailableTrue();
+    // 삭제되지 않고 판매 중인 메뉴만 조회
+    List<Menu> findAllByIsAvailableTrueAndDeletedFalse();
 }

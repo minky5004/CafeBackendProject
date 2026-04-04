@@ -1,14 +1,12 @@
 package com.example.cafebackendproject.domain.point.entity;
 
+import com.example.cafebackendproject.common.entity.CreatableEntity;
 import com.example.cafebackendproject.domain.point.enums.PointHistoryType;
 import com.example.cafebackendproject.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "point_histories")
@@ -16,8 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-@EntityListeners(AuditingEntityListener.class)
-public class PointHistory {
+public class PointHistory extends CreatableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,10 +31,6 @@ public class PointHistory {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private PointHistoryType type;
-
-    @CreatedDate
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime createdAt;
 
     public static PointHistory of(User user, BigDecimal amount, PointHistoryType type) {
         return PointHistory.builder()

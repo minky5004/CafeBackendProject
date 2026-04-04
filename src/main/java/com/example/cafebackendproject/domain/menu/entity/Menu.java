@@ -1,5 +1,6 @@
 package com.example.cafebackendproject.domain.menu.entity;
 
+import com.example.cafebackendproject.common.entity.DeletableEntity;
 import com.example.cafebackendproject.domain.menu.enums.MenuCategory;
 import jakarta.persistence.*;
 import lombok.*;
@@ -12,7 +13,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class Menu {
+public class Menu extends DeletableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,10 +42,5 @@ public class Menu {
         this.price = price;
         this.category = category;
         this.isAvailable = isAvailable;
-    }
-
-    // Soft Delete: DB에서 삭제하지 않고 판매 중지 처리
-    public void disable() {
-        this.isAvailable = false;
     }
 }
