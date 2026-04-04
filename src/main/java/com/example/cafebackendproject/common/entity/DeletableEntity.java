@@ -1,5 +1,6 @@
 package com.example.cafebackendproject.common.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 
@@ -10,6 +11,8 @@ import java.time.LocalDateTime;
 public abstract class DeletableEntity extends ModifiableEntity {
 
     private LocalDateTime deletedAt;
+
+    @Column(nullable = false)
     private boolean deleted = false;
 
     public void delete() {

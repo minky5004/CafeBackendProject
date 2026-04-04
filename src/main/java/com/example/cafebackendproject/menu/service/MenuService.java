@@ -21,7 +21,7 @@ public class MenuService {
 
     @Transactional
     public MenuResponse create(MenuCreateRequest request) {
-        if (menuRepository.existsByName(request.getName())) {
+        if (menuRepository.existsByNameAndDeletedFalse(request.getName())) {
             throw new CustomException(ErrorCode.DUPLICATE_MENU_NAME);
         }
 
@@ -64,7 +64,7 @@ public class MenuService {
                 .orElseThrow(() -> new CustomException(ErrorCode.MENU_NOT_FOUND));
 
         // 이름 변경 시 중복 체크 (자기 자신 제외)
-        if (!menu.getName().equals(request.getName()) && menuRepository.existsByName(request.getName())) {
+        if (!menu.getName().equals(request.getName()) && menuRepository.existsByNameAndDeletedFalse(request.getName())) {
             throw new CustomException(ErrorCode.DUPLICATE_MENU_NAME);
         }
 
