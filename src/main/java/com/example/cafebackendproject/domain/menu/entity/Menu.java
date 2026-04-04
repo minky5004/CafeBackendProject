@@ -42,4 +42,9 @@ public class Menu {
         this.category = category;
         this.isAvailable = isAvailable;
     }
+
+    // Soft Delete: DB에서 삭제하지 않고 판매 중지 처리
+    public void disable() {
+        this.isAvailable = false;
+    }
 }
