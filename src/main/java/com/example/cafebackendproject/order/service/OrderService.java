@@ -3,6 +3,8 @@ package com.example.cafebackendproject.order.service;
 import com.example.cafebackendproject.common.exception.CustomException;
 import com.example.cafebackendproject.common.exception.ErrorCode;
 import com.example.cafebackendproject.common.lock.DistributedLock;
+import com.example.cafebackendproject.order.event.OrderEventPayload;
+import com.example.cafebackendproject.order.event.OrderEventProducer;
 import com.example.cafebackendproject.domain.menu.entity.Menu;
 import com.example.cafebackendproject.domain.menu.repository.MenuRepository;
 import com.example.cafebackendproject.domain.order.entity.Order;
@@ -24,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -33,6 +36,7 @@ public class OrderService {
     private final MenuRepository menuRepository;
     private final UserRepository userRepository;
     private final PointHistoryRepository pointHistoryRepository;
+    private final Optional<OrderEventProducer> orderEventProducer;
 
     @Transactional
     public OrderResponse create(Long userId, OrderCreateRequest request) {
@@ -114,6 +118,8 @@ public class OrderService {
         user.deduct(order.getTotalPrice());
         pointHistoryRepository.save(PointHistory.of(user, order.getTotalPrice(), PointHistoryType.DEDUCT));
         order.updateStatus(OrderStatus.PAID);
+
+        orderEventProducer.ifPresent(producer -> producer.sendOrderPaidEvent(OrderEventPayload.from(order)));
 
         return OrderResponse.from(order);
     }
