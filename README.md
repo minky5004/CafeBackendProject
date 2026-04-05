@@ -144,7 +144,7 @@ Endpoint: ```/menus/{menuId}```
 
 Method: GET
 
-Endpoint: ```/menus/populer```
+Endpoint: ```/menus/popular```
 
 ***
 
