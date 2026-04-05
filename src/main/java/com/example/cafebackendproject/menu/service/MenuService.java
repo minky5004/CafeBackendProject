@@ -4,13 +4,16 @@ import com.example.cafebackendproject.common.exception.CustomException;
 import com.example.cafebackendproject.common.exception.ErrorCode;
 import com.example.cafebackendproject.domain.menu.entity.Menu;
 import com.example.cafebackendproject.domain.menu.repository.MenuRepository;
+import com.example.cafebackendproject.domain.order.repository.OrderItemRepository;
 import com.example.cafebackendproject.menu.dto.MenuCreateRequest;
 import com.example.cafebackendproject.menu.dto.MenuResponse;
 import com.example.cafebackendproject.menu.dto.MenuUpdateRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -18,6 +21,7 @@ import java.util.List;
 public class MenuService {
 
     private final MenuRepository menuRepository;
+    private final OrderItemRepository orderItemRepository;
 
     @Transactional
     public MenuResponse create(MenuCreateRequest request) {
@@ -72,6 +76,15 @@ public class MenuService {
                 request.getPrice(), request.getCategory(), request.isAvailable());
 
         return MenuResponse.from(menu);
+    }
+
+    // 최근 7일 인기 메뉴 상위 3개
+    @Transactional(readOnly = true)
+    public List<MenuResponse> getPopularMenus() {
+        LocalDateTime since = LocalDateTime.now().minusDays(7);
+        return orderItemRepository.findPopularMenus(since, PageRequest.of(0, 3)).stream()
+                .map(MenuResponse::from)
+                .toList();
     }
 
     // Soft Delete: deleted = true, deletedAt 기록

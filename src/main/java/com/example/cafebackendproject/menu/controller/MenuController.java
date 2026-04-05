@@ -27,6 +27,12 @@ public class MenuController {
         return ResponseEntity.ok(ApiResponse.success(menuService.create(request)));
     }
 
+    // 최근 7일 인기 메뉴 상위 3개
+    @GetMapping("/popular")
+    public ResponseEntity<ApiResponse<List<MenuResponse>>> getPopularMenus() {
+        return ResponseEntity.ok(ApiResponse.success(menuService.getPopularMenus()));
+    }
+
     // 누구나 판매 중인 메뉴 조회 가능
     @GetMapping
     public ResponseEntity<ApiResponse<List<MenuResponse>>> getAvailableMenus() {
