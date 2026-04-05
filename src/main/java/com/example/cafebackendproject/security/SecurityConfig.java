@@ -2,6 +2,7 @@ package com.example.cafebackendproject.security;
 
 import com.example.cafebackendproject.security.jwt.JwtAuthenticationFilter;
 import com.example.cafebackendproject.security.jwt.JwtTokenProvider;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,6 +34,10 @@ public class SecurityConfig {
                 // 회원가입/로그인은 인증 없이 허용
                 .requestMatchers("/auth/**").permitAll()
                 .anyRequest().authenticated()
+            )
+            .exceptionHandling(ex -> ex
+                .authenticationEntryPoint((request, response, authException) ->
+                        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized"))
             )
             // UsernamePasswordAuthenticationFilter 앞에 JWT 필터 삽입
             .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
