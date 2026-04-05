@@ -2,6 +2,7 @@ package com.example.cafebackendproject.point.service;
 
 import com.example.cafebackendproject.common.exception.CustomException;
 import com.example.cafebackendproject.common.exception.ErrorCode;
+import com.example.cafebackendproject.common.lock.DistributedLock;
 import com.example.cafebackendproject.domain.point.entity.PointHistory;
 import com.example.cafebackendproject.domain.point.enums.PointHistoryType;
 import com.example.cafebackendproject.domain.point.repository.PointHistoryRepository;
@@ -30,6 +31,7 @@ public class PointService {
         return PointResponse.from(user);
     }
 
+    @DistributedLock(key = "#userId")
     @Transactional
     public PointResponse charge(Long userId, PointChargeRequest request) {
         User user = userRepository.findById(userId)

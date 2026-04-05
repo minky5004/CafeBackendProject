@@ -2,6 +2,7 @@ package com.example.cafebackendproject.order.service;
 
 import com.example.cafebackendproject.common.exception.CustomException;
 import com.example.cafebackendproject.common.exception.ErrorCode;
+import com.example.cafebackendproject.common.lock.DistributedLock;
 import com.example.cafebackendproject.domain.menu.entity.Menu;
 import com.example.cafebackendproject.domain.menu.repository.MenuRepository;
 import com.example.cafebackendproject.domain.order.entity.Order;
@@ -93,6 +94,7 @@ public class OrderService {
     }
 
     // 결제: 포인트 차감 → 주문 상태 PAID로 변경
+    @DistributedLock(key = "#userId")
     @Transactional
     public OrderResponse payment(Long userId, Long orderId) {
         Order order = orderRepository.findById(orderId)
