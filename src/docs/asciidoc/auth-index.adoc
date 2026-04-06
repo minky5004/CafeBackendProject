@@ -1,0 +1,39 @@
+= 인증 API
+:toc: left
+:toclevels: 2
+:source-highlighter: highlightjs
+
+== 공개 API
+인증 없이 접근 가능한 API입니다.
+
+=== 회원가입
+새로운 사용자를 등록합니다.
+
+==== Request
+include::{snippets}/auth/signup/http-request.adoc[]
+
+==== Response
+include::{snippets}/auth/signup/http-response.adoc[]
+
+---
+
+=== 로그인
+이메일과 비밀번호로 로그인하여 JWT 토큰을 발급받습니다.
+응답 헤더의 `Authorization: Bearer <token>` 값을 이후 요청에 사용하세요.
+
+==== Request
+include::{snippets}/auth/login/http-request.adoc[]
+
+==== Response
+include::{snippets}/auth/login/http-response.adoc[]
+
+---
+
+=== 로그아웃
+현재 세션을 종료합니다.
+
+==== Request
+include::{snippets}/auth/logout/http-request.adoc[]
+
+==== Response
+include::{snippets}/auth/logout/http-response.adoc[]

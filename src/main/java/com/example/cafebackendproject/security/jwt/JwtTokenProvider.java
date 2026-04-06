@@ -28,7 +28,6 @@ public class JwtTokenProvider {
         this.key = Keys.hmacShaKeyFor(secretKey.getBytes());
     }
 
-    // 액세스 토큰 생성 (subject: email, claim: userId, role)
     public String createToken(CustomUserDetails userDetails) {
         Date now = new Date();
         return Jwts.builder()
@@ -41,7 +40,6 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    // 토큰에서 Claims 추출
     public Claims parseClaims(String token) {
         try {
             return Jwts.parserBuilder()

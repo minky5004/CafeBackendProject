@@ -1,0 +1,74 @@
+= 메뉴 API
+:toc: left
+:toclevels: 2
+:source-highlighter: highlightjs
+
+== 사용자용 API
+로그인한 사용자 누구나 접근 가능합니다.
+
+=== 판매 중인 메뉴 목록 조회
+현재 판매 중인 메뉴 전체를 조회합니다.
+
+==== Request
+include::{snippets}/menu/list/http-request.adoc[]
+
+==== Response
+include::{snippets}/menu/list/http-response.adoc[]
+
+---
+
+=== 인기 메뉴 조회
+최근 7일간 가장 많이 주문된 메뉴 상위 3개를 조회합니다.
+
+==== Request
+include::{snippets}/menu/popular/http-request.adoc[]
+
+==== Response
+include::{snippets}/menu/popular/http-response.adoc[]
+
+---
+
+=== 메뉴 단건 조회
+메뉴 ID로 특정 메뉴를 조회합니다.
+
+==== Request
+include::{snippets}/menu/get/http-request.adoc[]
+
+==== Response
+include::{snippets}/menu/get/http-response.adoc[]
+
+---
+
+== 관리자용 API
+**ADMIN 권한**을 가진 사용자만 접근할 수 있습니다.
+
+=== 메뉴 등록
+새로운 메뉴를 등록합니다.
+
+==== Request
+include::{snippets}/menu/create/http-request.adoc[]
+
+==== Response
+include::{snippets}/menu/create/http-response.adoc[]
+
+---
+
+=== 메뉴 수정
+기존 메뉴 정보를 수정합니다.
+
+==== Request
+include::{snippets}/menu/update/http-request.adoc[]
+
+==== Response
+include::{snippets}/menu/update/http-response.adoc[]
+
+---
+
+=== 메뉴 삭제
+메뉴를 삭제합니다 (Soft Delete).
+
+==== Request
+include::{snippets}/menu/delete/http-request.adoc[]
+
+==== Response
+include::{snippets}/menu/delete/http-response.adoc[]

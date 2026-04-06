@@ -33,7 +33,6 @@ public class Order extends CreatableEntity {
     @Column(nullable = false)
     private OrderStatus status;
 
-    // 주문 생성 시 함께 저장
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<OrderItem> orderItems = new ArrayList<>();

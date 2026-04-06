@@ -29,7 +29,6 @@ public class OrderItem {
     @Column(nullable = false)
     private int quantity;
 
-    // 주문 시점의 가격을 저장 (이후 메뉴 가격 변경에 영향받지 않음)
     @Column(nullable = false)
     private BigDecimal price;
 

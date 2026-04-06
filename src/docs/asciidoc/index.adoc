@@ -1,0 +1,20 @@
+= API 명세서: CafeBackendProject
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+:sectnums:
+:sectlinks:
+
+== 인증 (Auth)
+include::auth-index.adoc[leveloffset=+1]
+
+== 메뉴 (Menu)
+include::menu-index.adoc[leveloffset=+1]
+
+== 포인트 (Point)
+include::point-index.adoc[leveloffset=+1]
+
+== 주문 (Order)
+include::order-index.adoc[leveloffset=+1]

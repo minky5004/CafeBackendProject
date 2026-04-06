@@ -43,7 +43,6 @@ public class OrderService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
 
-        // 메뉴 조회 및 검증을 먼저 수행 후 총액 계산
         List<Menu> menus = request.getItems().stream()
                 .map(item -> {
                     Menu menu = menuRepository.findById(item.getMenuId())
@@ -62,7 +61,6 @@ public class OrderService {
             );
         }
 
-        // Order 생성 후 OrderItem cascade 저장
         Order order = Order.of(user, totalPrice);
         for (int i = 0; i < menus.size(); i++) {
             OrderItemRequest itemRequest = request.getItems().get(i);
@@ -72,7 +70,6 @@ public class OrderService {
         return OrderResponse.from(orderRepository.save(order));
     }
 
-    // 전체 주문 조회 (관리자용)
     @Transactional(readOnly = true)
     public List<OrderResponse> getAllOrders() {
         return orderRepository.findAll().stream()
@@ -80,7 +77,6 @@ public class OrderService {
                 .toList();
     }
 
-    // 내 주문 내역 조회
     @Transactional(readOnly = true)
     public List<OrderResponse> getMyOrders(Long userId) {
         return orderRepository.findAllByUserIdOrderByCreatedAtDesc(userId).stream()
@@ -88,7 +84,6 @@ public class OrderService {
                 .toList();
     }
 
-    // 주문 상태 변경 (관리자용)
     @Transactional
     public OrderResponse updateStatus(Long orderId, OrderStatusUpdateRequest request) {
         Order order = orderRepository.findById(orderId)
@@ -97,12 +92,15 @@ public class OrderService {
         return OrderResponse.from(order);
     }
 
-    // 결제: 포인트 차감 → 주문 상태 PAID로 변경
     @DistributedLock(key = "#userId")
     @Transactional
     public OrderResponse payment(Long userId, Long orderId) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new CustomException(ErrorCode.ORDER_NOT_FOUND));
+
+        if (!order.getUser().getId().equals(userId)) {
+            throw new CustomException(ErrorCode.ORDER_FORBIDDEN);
+        }
 
         if (order.getStatus() == OrderStatus.PAID) {
             throw new CustomException(ErrorCode.ORDER_ALREADY_PAID);

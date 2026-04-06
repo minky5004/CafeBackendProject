@@ -20,7 +20,6 @@ public class UserOrderController {
 
     private final OrderService orderService;
 
-    // 내 주문 내역 조회
     @GetMapping
     public ResponseEntity<ApiResponse<List<OrderResponse>>> getMyOrders(
             @AuthenticationPrincipal CustomUserDetails userDetails) {

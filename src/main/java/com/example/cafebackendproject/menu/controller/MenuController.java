@@ -20,26 +20,22 @@ public class MenuController {
 
     private final MenuService menuService;
 
-    // 관리자만 메뉴 등록 가능
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<ApiResponse<MenuResponse>> create(@Valid @RequestBody MenuCreateRequest request) {
         return ResponseEntity.ok(ApiResponse.success(menuService.create(request)));
     }
 
-    // 최근 7일 인기 메뉴 상위 3개
     @GetMapping("/popular")
     public ResponseEntity<ApiResponse<List<MenuResponse>>> getPopularMenus() {
         return ResponseEntity.ok(ApiResponse.success(menuService.getPopularMenus()));
     }
 
-    // 누구나 판매 중인 메뉴 조회 가능
     @GetMapping
     public ResponseEntity<ApiResponse<List<MenuResponse>>> getAvailableMenus() {
         return ResponseEntity.ok(ApiResponse.success(menuService.getAvailableMenus()));
     }
 
-    // 관리자는 품절 포함 전체 조회
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/all")
     public ResponseEntity<ApiResponse<List<MenuResponse>>> getAllMenus() {
@@ -51,7 +47,6 @@ public class MenuController {
         return ResponseEntity.ok(ApiResponse.success(menuService.getMenu(menuId)));
     }
 
-    // 관리자만 수정/삭제 가능
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{menuId}")
     public ResponseEntity<ApiResponse<MenuResponse>> update(@PathVariable Long menuId,

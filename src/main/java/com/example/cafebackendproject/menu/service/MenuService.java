@@ -39,7 +39,6 @@ public class MenuService {
         return MenuResponse.from(menuRepository.save(menu));
     }
 
-    // 삭제되지 않고 판매 중인 메뉴 전체 조회
     @Transactional(readOnly = true)
     public List<MenuResponse> getAvailableMenus() {
         return menuRepository.findAllByIsAvailableTrueAndDeletedFalse().stream()
@@ -47,10 +46,9 @@ public class MenuService {
                 .toList();
     }
 
-    // 메뉴 전체 조회 (관리자용)
     @Transactional(readOnly = true)
     public List<MenuResponse> getAllMenus() {
-        return menuRepository.findAll().stream()
+        return menuRepository.findAllByDeletedFalse().stream()
                 .map(MenuResponse::from)
                 .toList();
     }
@@ -67,7 +65,6 @@ public class MenuService {
         Menu menu = menuRepository.findById(menuId)
                 .orElseThrow(() -> new CustomException(ErrorCode.MENU_NOT_FOUND));
 
-        // 이름 변경 시 중복 체크 (자기 자신 제외)
         if (!menu.getName().equals(request.getName()) && menuRepository.existsByNameAndDeletedFalse(request.getName())) {
             throw new CustomException(ErrorCode.DUPLICATE_MENU_NAME);
         }
@@ -78,7 +75,6 @@ public class MenuService {
         return MenuResponse.from(menu);
     }
 
-    // 최근 7일 인기 메뉴 상위 3개
     @Transactional(readOnly = true)
     public List<MenuResponse> getPopularMenus() {
         LocalDateTime since = LocalDateTime.now().minusDays(7);
@@ -87,7 +83,6 @@ public class MenuService {
                 .toList();
     }
 
-    // Soft Delete: deleted = true, deletedAt 기록
     @Transactional
     public void delete(Long menuId) {
         Menu menu = menuRepository.findById(menuId)

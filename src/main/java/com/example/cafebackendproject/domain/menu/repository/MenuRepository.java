@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface MenuRepository extends JpaRepository<Menu, Long> {
 
-    // 삭제되지 않은 메뉴 중 이름 중복 체크
     boolean existsByNameAndDeletedFalse(String name);
 
-    // 삭제되지 않고 판매 중인 메뉴만 조회
     List<Menu> findAllByIsAvailableTrueAndDeletedFalse();
+
+    List<Menu> findAllByDeletedFalse();
 }

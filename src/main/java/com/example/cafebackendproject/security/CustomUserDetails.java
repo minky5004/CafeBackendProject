@@ -22,7 +22,6 @@ public class CustomUserDetails implements UserDetails {
         this.userRole = userRole;
     }
 
-    // ROLE_ 접두사 붙여서 Spring Security 권한으로 변환
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_" + userRole.name()));
