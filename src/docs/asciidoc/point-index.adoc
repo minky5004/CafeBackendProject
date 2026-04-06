@@ -1,0 +1,38 @@
+= 포인트 API
+:toc: left
+:toclevels: 2
+:source-highlighter: highlightjs
+
+== 사용자용 API
+로그인한 본인의 포인트만 조회 및 사용할 수 있습니다.
+
+=== 포인트 잔액 조회
+현재 보유 포인트 잔액을 조회합니다.
+
+==== Request
+include::{snippets}/point/balance/http-request.adoc[]
+
+==== Response
+include::{snippets}/point/balance/http-response.adoc[]
+
+---
+
+=== 포인트 충전
+포인트를 충전합니다.
+
+==== Request
+include::{snippets}/point/charge/http-request.adoc[]
+
+==== Response
+include::{snippets}/point/charge/http-response.adoc[]
+
+---
+
+=== 포인트 내역 조회
+포인트 충전 및 차감 내역을 최신순으로 조회합니다.
+
+==== Request
+include::{snippets}/point/histories/http-request.adoc[]
+
+==== Response
+include::{snippets}/point/histories/http-response.adoc[]

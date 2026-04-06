@@ -18,7 +18,7 @@ import java.lang.reflect.Method;
 
 @Slf4j
 @Aspect
-@Order(0) // (락 획득 → 트랜잭션 시작 → 커밋 → 락 해제)
+@Order(0)
 @Component
 @RequiredArgsConstructor
 public class DistributedLockAop {

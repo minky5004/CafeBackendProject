@@ -1,0 +1,63 @@
+= 주문 API
+:toc: left
+:toclevels: 2
+:source-highlighter: highlightjs
+
+== 사용자용 API
+로그인한 사용자가 주문을 생성하고 결제할 수 있습니다.
+
+=== 주문 생성
+메뉴 항목과 수량을 담아 주문을 생성합니다.
+
+==== Request
+include::{snippets}/order/create/http-request.adoc[]
+
+==== Response
+include::{snippets}/order/create/http-response.adoc[]
+
+---
+
+=== 결제
+포인트로 주문을 결제합니다. 잔액이 부족하면 결제가 거부됩니다.
+
+==== Request
+include::{snippets}/order/payment/http-request.adoc[]
+
+==== Response
+include::{snippets}/order/payment/http-response.adoc[]
+
+---
+
+=== 내 주문 내역 조회
+본인의 주문 내역을 조회합니다.
+
+==== Request
+include::{snippets}/order/my-orders/http-request.adoc[]
+
+==== Response
+include::{snippets}/order/my-orders/http-response.adoc[]
+
+---
+
+== 관리자용 API
+**ADMIN 권한**을 가진 사용자만 접근할 수 있습니다.
+
+=== 전체 주문 조회
+모든 사용자의 주문 내역을 조회합니다.
+
+==== Request
+include::{snippets}/order/list/http-request.adoc[]
+
+==== Response
+include::{snippets}/order/list/http-response.adoc[]
+
+---
+
+=== 주문 상태 변경
+주문의 상태를 변경합니다 (예: PENDING → PAID → COMPLETED).
+
+==== Request
+include::{snippets}/order/status/http-request.adoc[]
+
+==== Response
+include::{snippets}/order/status/http-response.adoc[]

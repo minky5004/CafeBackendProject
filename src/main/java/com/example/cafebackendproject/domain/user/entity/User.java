@@ -22,7 +22,6 @@ public class User extends ModifiableEntity {
     @Column(nullable = false)
     private String name;
 
-    // 이메일은 로그인 ID로 사용, 중복 불가
     @Column(nullable = false, unique = true)
     private String email;
 

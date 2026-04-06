@@ -30,12 +30,10 @@ public class AuthController {
     public ResponseEntity<ApiResponse<LoginResponse>> login(@Valid @RequestBody LoginRequest request) {
         LoginResponse response = authService.login(request);
         return ResponseEntity.ok()
-                // 응답 헤더에도 토큰 포함
                 .header("Authorization", "Bearer " + response.getAccessToken())
                 .body(ApiResponse.success(response));
     }
 
-    // JWT는 stateless이므로 클라이언트에서 토큰 삭제로 로그아웃 처리
     @PostMapping("/logout")
     public ResponseEntity<ApiResponse<Void>> logout() {
         return ResponseEntity.ok(ApiResponse.success(null));

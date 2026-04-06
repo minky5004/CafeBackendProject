@@ -31,7 +31,6 @@ public class Menu extends DeletableEntity {
     @Column(nullable = false)
     private MenuCategory category;
 
-    // false면 품절 처리
     @Column(nullable = false)
     @Builder.Default
     private boolean isAvailable = true;

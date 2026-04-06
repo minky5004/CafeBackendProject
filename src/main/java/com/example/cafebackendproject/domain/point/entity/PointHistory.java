@@ -27,7 +27,6 @@ public class PointHistory extends CreatableEntity {
     @Column(nullable = false)
     private BigDecimal amount;
 
-    // 충전(CHARGE) 또는 차감(DEDUCT)
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private PointHistoryType type;

@@ -10,7 +10,6 @@ import java.util.concurrent.TimeUnit;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface DistributedLock {
 
-    // SpEL 표현식으로 락 키 지정 (예: "#userId")
     String key();
 
     long waitTime() default 5L;

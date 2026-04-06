@@ -29,14 +29,12 @@ public class OrderController {
         return ResponseEntity.ok(ApiResponse.success(orderService.create(userDetails.getUserId(), request)));
     }
 
-    // 전체 주문 조회 (관리자용)
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<ApiResponse<List<OrderResponse>>> getAllOrders() {
         return ResponseEntity.ok(ApiResponse.success(orderService.getAllOrders()));
     }
 
-    // 주문 상태 변경 (관리자용)
     @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/{orderId}/status")
     public ResponseEntity<ApiResponse<OrderResponse>> updateStatus(
@@ -45,7 +43,6 @@ public class OrderController {
         return ResponseEntity.ok(ApiResponse.success(orderService.updateStatus(orderId, request)));
     }
 
-    // 결제
     @PostMapping("/payment")
     public ResponseEntity<ApiResponse<OrderResponse>> payment(
             @AuthenticationPrincipal CustomUserDetails userDetails,

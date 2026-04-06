@@ -28,10 +28,8 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .csrf(AbstractHttpConfigurer::disable)
-            // JWT 사용으로 세션 미사용
             .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                // 회원가입/로그인은 인증 없이 허용
                 .requestMatchers("/auth/**").permitAll()
                 .anyRequest().authenticated()
             )
@@ -39,7 +37,6 @@ public class SecurityConfig {
                 .authenticationEntryPoint((request, response, authException) ->
                         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized"))
             )
-            // UsernamePasswordAuthenticationFilter 앞에 JWT 필터 삽입
             .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
                     UsernamePasswordAuthenticationFilter.class);
 
